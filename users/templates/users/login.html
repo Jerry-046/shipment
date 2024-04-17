@@ -1,0 +1,17 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Log In</button>
+        </form>
+        <div>
+            <br>
+            Dont Have an Account
+            <a href="{% url 'register-user' %}">Sign Up</a>
+        </div>
+    </div>
+{% endblock bodycontent %}
+    
