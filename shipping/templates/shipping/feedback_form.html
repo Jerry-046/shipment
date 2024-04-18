@@ -1,0 +1,12 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+    <h1>{% if form.instance.pk %}Edit Feedback{% else %}Create Feedback{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'feedback_list' %}">Back to All Feedbacks</a>
+{% endblock bodycontent %}
+    

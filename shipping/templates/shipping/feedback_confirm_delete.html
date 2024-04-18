@@ -1,0 +1,14 @@
+{% extends 'shipping/base.html' %}
+
+
+{% block bodycontent %}
+<h1>Confirm Delete</h1>
+    <p>Are you sure you want to delete feedback from {{ feedback.name }}?</p>
+    <form action="{% url 'feedback_delete' feedback.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+    <a href="{% url 'feedback_list' %}">Cancel</a>
+
+{% endblock bodycontent %}
+    

@@ -1,0 +1,16 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+<h1>Feedback Detail</h1>
+    <p><strong>Name:</strong> {{ feedback.name }}</p>
+    <p><strong>Email:</strong> {{ feedback.email }}</p>
+    <p><strong>Message:</strong> {{ feedback.message }}</p>
+    <a href="{% url 'feedback_update' feedback.pk %}">Edit</a>
+    <form action="{% url 'feedback_delete' feedback.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'feedback_list' %}">Back to All Feedbacks</a>
+{% endblock bodycontent %}
+
+    
