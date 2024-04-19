@@ -1,0 +1,11 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+<h2>From Form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Next</button>
+</form>
+{% endblock bodycontent %}
+    

@@ -1,7 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required,permission_required
-from .forms import FeedbackForm
-from .models import Feedback
+from .forms import FeedbackForm,FromForm,ToForm
+from .models import Feedback,Shipment
+from  django.contrib.auth.models import User
 
 def index(request):
     return render(request,'shipping/home.html')
@@ -46,3 +47,38 @@ def feedback_delete(request, pk):
         return redirect('feedback_list')
     return render(request, 'shipping/feedback_confirm_delete.html', {'feedback': feedback})
 
+@login_required
+def from_form(request):
+    if request.method == 'POST':
+        form = FromForm(request.POST)
+        if form.is_valid():
+            shipment = form.save(commit=False)
+            shipment.owner = request.user  # Set the owner of the shipment
+            shipment.save()
+            return redirect('to_form', shipment_id=shipment.id)
+    else:
+        form = FromForm()
+    return render(request, 'shipping/from_form.html', {'form': form})
+
+@login_required
+def to_form(request, shipment_id):
+    shipment = get_object_or_404(Shipment, id=shipment_id)
+    if request.user == shipment.owner or request.user.is_superuser:
+        if request.method == 'POST':
+            form = ToForm(request.POST, instance=shipment)
+            if form.is_valid():
+                form.save()
+                return redirect('shipment_list')
+        else:
+            form = ToForm(instance=shipment)
+        return render(request, 'shipping/to_form.html', {'form': form})
+    else:
+        return redirect('shipment_list')
+
+@login_required
+def shipment_list(request):
+    if request.user.is_superuser:
+        shipments = Shipment.objects.all()
+    else:
+        shipments = Shipment.objects.filter(user=request.user)
+    return render(request, 'shipping/shipment_list.html', {'shipments': shipments})

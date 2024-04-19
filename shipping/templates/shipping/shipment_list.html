@@ -1,0 +1,14 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+<h2>Shipment List</h2>
+    <ul>
+        {% for shipment in shipments %}
+            <li>{{ shipment }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'shipping-home'%}">Go to home</a>
+
+{% endblock bodycontent %}
+    
