@@ -87,7 +87,8 @@ def shipment_list(request):
 def shipment_detail(request, shipment_id):
     shipment = get_object_or_404(Shipment, id=shipment_id)
     if request.user == shipment.user or request.user.is_superuser:
-        return render(request, 'shipping/shipment_detail.html', {'shipment': shipment})
+        userd={'user_firstname': shipment.user.first_name,'user_lastname':shipment.user.last_name,'user_email':shipment.user.email}
+        return render(request, 'shipping/shipment_detail.html', {'shipment': shipment,'userdetails':userd})
     else:
         return redirect('shipment_list')
 

@@ -2,8 +2,52 @@
 
 {% block bodycontent %}
 <h2>Shipment Detail</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+        <tr>
+            <th>Firstname</th>
+            <th>{{userdetails.user_firstname}}  {{userdetails.user_lastname}}</th>
+            <th>{{shipment.reciever_firstname}} {{shipment.reciever_lastname}}</th>
+        </tr>
+        <tr>
+            <th>City</th>
+            <th>{{shipment.sender_city}}</th>
+            <th>{{shipment.reciever_city}}</th>
+        </tr>
+        <tr>
+            <th>Postal Code</th>
+            <th>{{shipment.sender_postalcode}}</th>
+            <th>{{shipment.reciever_postalcode}}</th>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <th>{{shipment.sender_country}}</th>
+            <th>{{shipment.reciever_country}}</th>
+        </tr>
+        <tr>
+            <th>Contact Number</th>
+            <th>{{shipment.sender_contactnumber}}</th>
+            <th>{{shipment.reciever_contactnumber}}</th>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <th>{{shipment.sender_address}}</th>
+            <th>{{shipment.reciever_address}}</th>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <th>{{shipment.sender_email}}</th>
+            <th>{{shipment.reciever_email}}</th>
+        </tr>
+    </table>
     <p>From: {{ shipment.sender_city }}</p>
     <p>To: {{ shipment.reciever_city }}</p>
+
+
     {% if request.user == shipment.user or request.user.is_superuser %}
         <button><a href="{% url 'shipment_update' shipment.id %}">Update</a></button>
         <br>
