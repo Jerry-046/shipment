@@ -11,4 +11,7 @@ urlpatterns = [
     path('from/', shippingview.from_form, name='from_form'),
     path('to/<int:shipment_id>/', shippingview.to_form, name='to_form'),
     path('list-shipment', shippingview.shipment_list, name='shipment_list'),
+    path('detail/<int:shipment_id>/', shippingview.shipment_detail, name='shipment_detail'),
+    path('update/<int:shipment_id>/', shippingview.update_shipment, name='shipment_update'),
+    path('delete/<int:shipment_id>/', shippingview.delete_shipment, name='shipment_delete'),
 ]

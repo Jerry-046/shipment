@@ -53,7 +53,7 @@ def from_form(request):
         form = FromForm(request.POST)
         if form.is_valid():
             shipment = form.save(commit=False)
-            shipment.owner = request.user  # Set the owner of the shipment
+            shipment.user = request.user  # Set the owner of the shipment
             shipment.save()
             return redirect('to_form', shipment_id=shipment.id)
     else:
@@ -63,7 +63,7 @@ def from_form(request):
 @login_required
 def to_form(request, shipment_id):
     shipment = get_object_or_404(Shipment, id=shipment_id)
-    if request.user == shipment.owner or request.user.is_superuser:
+    if request.user == shipment.user or request.user.is_superuser:
         if request.method == 'POST':
             form = ToForm(request.POST, instance=shipment)
             if form.is_valid():
@@ -82,3 +82,37 @@ def shipment_list(request):
     else:
         shipments = Shipment.objects.filter(user=request.user)
     return render(request, 'shipping/shipment_list.html', {'shipments': shipments})
+
+@login_required
+def shipment_detail(request, shipment_id):
+    shipment = get_object_or_404(Shipment, id=shipment_id)
+    if request.user == shipment.user or request.user.is_superuser:
+        return render(request, 'shipping/shipment_detail.html', {'shipment': shipment})
+    else:
+        return redirect('shipment_list')
+
+@login_required
+def update_shipment(request, shipment_id):
+    shipment = get_object_or_404(Shipment, id=shipment_id)
+    if request.user == shipment.user or request.user.is_superuser:
+        if request.method == 'POST':
+            form = ToForm(request.POST, instance=shipment)
+            if form.is_valid():
+                form.save()
+                return redirect('shipment_detail', shipment_id=shipment.id)
+        else:
+            form = ToForm(instance=shipment)
+        return render(request, 'shipping/update_shipment.html', {'form': form, 'shipment': shipment})
+    else:
+        return redirect('shipment_list')
+
+@login_required
+def delete_shipment(request, shipment_id):
+    shipment = get_object_or_404(Shipment, id=shipment_id)
+    if request.user == shipment.user or request.user.is_superuser:
+        if request.method == 'POST':
+            shipment.delete()
+            return redirect('shipment_list')
+        return render(request, 'shipping/delete_shipment.html', {'shipment': shipment})
+    else:
+        return redirect('shipment_list')

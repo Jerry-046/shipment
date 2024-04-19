@@ -4,7 +4,8 @@
 <h2>Shipment List</h2>
     <ul>
         {% for shipment in shipments %}
-            <li>{{ shipment }}</li>
+           <div> <li>{{ shipment }}</li> </div>
+           <div> <a href="{% url 'shipment_detail' shipment.pk %}">Read</a></div>
         {% endfor %}
     </ul>
     <br>

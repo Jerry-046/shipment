@@ -1,0 +1,18 @@
+{% extends 'shipping/base.html' %}
+
+{% block bodycontent %}
+<h2>Shipment Detail</h2>
+    <p>From: {{ shipment.sender_city }}</p>
+    <p>To: {{ shipment.reciever_city }}</p>
+    {% if request.user == shipment.user or request.user.is_superuser %}
+        <button><a href="{% url 'shipment_update' shipment.id %}">Update</a></button>
+        <br>
+        <form method="post" action="{% url 'shipment_delete' shipment.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    {% endif %}
+    <br>
+    <a href="{% url 'shipment_list' %}">Back to Shipment List</a>
+{% endblock bodycontent %}
+    
