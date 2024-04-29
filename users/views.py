@@ -19,6 +19,6 @@ def registeruser(request):
     
 def logoutUser(request):
     logout(request)
-    return redirect('login')    
+    return redirect('shipping-home')    
 
 # Create your views here.
