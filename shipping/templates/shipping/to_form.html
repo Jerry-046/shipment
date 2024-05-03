@@ -1,12 +1,64 @@
 {% extends 'shipping/base.html' %}
 
 {% block bodycontent %}
-<h2>To Form</h2>
+<!-- <h2>To Form</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
-    <a href="{% url 'shipping-home'%}">Go To home </a>
-{% endblock bodycontent %}
+    <a href="{% url 'shipping-home'%}">Go To home </a> -->
+
+    <div class="bg-zinc-800 p-8 rounded-lg max-w-4xl mx-auto text-white lg:mt-16">
+        <h2 class="text-2xl mb-4">Create a Shipment</h2>
+        <div class="flex justify-between mb-4">
+            <p class="text-white">To</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="text-red-500">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="id_reciever_country">Reciever country:</label>
+                    <select name="reciever_country" class="bg-zinc-700 rounded-lg p-2 lg:w-24 ">
+                        <option value="" selected>---------</option>
+                        {% for i in country %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input  type="text" name="reciever_firstname" required id="id_reciever_firstname" placeholder="First Name" class="bg-zinc-700 rounded-lg p-2">
+                <input type="text" name="reciever_lastname" required id="id_reciever_lastname" placeholder="Last Name" class="bg-zinc-700 rounded-lg p-2">
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <input type="text" name="reciever_contactnumber" required id="id_reciever_contactnumber" placeholder="Contact Number" class="bg-zinc-700 rounded-lg p-2">
+                <input type="email" name="reciever_email" required id="id_reciever_email" placeholder="Email Address" class="bg-zinc-700 rounded-lg p-2">
+                <input type="city" name="reciever_city" required id="id_reciever_city" placeholder="City" class="bg-zinc-700 rounded-lg p-2">
+                
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <input type="text" name="reciever_postalcode" id="id_reciever_postalcode" placeholder="Postal Code" class="bg-zinc-700 rounded-lg p-2">
+                <input type="text" name="reciever_telephone1" id="id_reciever_telephone1" placeholder="Telephone 1" class="bg-zinc-700 rounded-lg p-2">
+                <input type="text" name="reciever_telephone2" id="id_reciever_telephone2" placeholder="Telephone 2" class="bg-zinc-700 rounded-lg p-2">
+            </div>
+            <div class="mb-4">
+                <input type="text" name="reciever_address" required id="id_reciever_address" placeholder="Address" class="bg-zinc-700 rounded-lg p-2 w-full">
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full mb-4">Submit</button>
+        </form>
+    </div>
     
+        
+    
+{% endblock bodycontent %}
+

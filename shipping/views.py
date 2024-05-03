@@ -66,8 +66,8 @@ def from_form(request):
             return redirect('to_form')
     else:
         form = FromForm()
-    
-    return render(request, 'shipping/from_form.html', {'form': form})
+    country=Country.objects.all()
+    return render(request, 'shipping/from_form.html', {'form': form,'country':country})
 
 @login_required
 def to_form(request):
@@ -105,8 +105,9 @@ def to_form(request):
             return redirect('shipment_list')  # Redirect to a success page
     else:
         form = ToForm()
+    country=Country.objects.all()
     
-    return render(request, 'shipping/to_form.html', {'form': form})
+    return render(request, 'shipping/to_form.html', {'form': form,'country':country})
 
 @login_required
 def shipment_list(request):

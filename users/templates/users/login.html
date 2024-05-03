@@ -4,12 +4,17 @@
     <div>
         <form method="post">
             {% csrf_token %}
-            <!-- {{form.as_p}}
-            <div>
-                <a href="{% url 'password_reset' %}">Forget Password</a>
-            </div>
-            <button type="submit">Log In</button> -->
-        
+            {% if form.errors %}
+                <div class="text-red-500">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
           <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
               <div class="relative py-3 sm:max-w-xl sm:mx-auto">
                 <div
@@ -38,8 +43,8 @@
                         </div>
                       </div>
                       <div class="w-full flex justify-center hover:text-blue-500">
-                          Dont have an Account?<a href="{% url 'register-user' %}">Sign Up</a>
-                        </div>
+                         <a href="{% url 'register-user' %}">Dont have an Account?Sign Up</a>
+                      </div>
                     </div>
                   </div>
                 </div>

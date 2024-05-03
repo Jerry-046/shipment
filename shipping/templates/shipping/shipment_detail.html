@@ -1,52 +1,60 @@
 {% extends 'shipping/base.html' %}
 
 {% block bodycontent %}
-<h2>Shipment Detail</h2>
-    <table>
-        <tr>
-            <th></th>
-            <th>From</th>
-            <th>To</th>
-        </tr>
-        <tr>
-            <th>Firstname</th>
-            <th>{{userdetails.user_firstname}}  {{userdetails.user_lastname}}</th>
-            <th>{{shipment.reciever_firstname}} {{shipment.reciever_lastname}}</th>
-        </tr>
-        <tr>
-            <th>City</th>
-            <th>{{shipment.sender_city}}</th>
-            <th>{{shipment.reciever_city}}</th>
-        </tr>
-        <tr>
-            <th>Postal Code</th>
-            <th>{{shipment.sender_postalcode}}</th>
-            <th>{{shipment.reciever_postalcode}}</th>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <th>{{shipment.sender_country}}</th>
-            <th>{{shipment.reciever_country}}</th>
-        </tr>
-        <tr>
-            <th>Contact Number</th>
-            <th>{{shipment.sender_contactnumber}}</th>
-            <th>{{shipment.reciever_contactnumber}}</th>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <th>{{shipment.sender_address}}</th>
-            <th>{{shipment.reciever_address}}</th>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <th>{{shipment.sender_email}}</th>
-            <th>{{shipment.reciever_email}}</th>
-        </tr>
-    </table>
-    <p>From: {{ shipment.sender_city }}</p>
-    <p>To: {{ shipment.reciever_city }}</p>
-
+<!-- <h2 class="flex flex-row flex-nowrap items-center mt-24">
+    <span class="flex-grow block border-t border-black"></span>
+    <span class="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-black text-white">
+        Heading Text
+    </span>
+    <span class="flex-grow block border-t border-black"></span>
+</h2>
+     -->
+    <table class="w-screen divide-y divide-gray-200 lg:my-12">
+        <thead>
+          <tr>
+            <th class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+            <th class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">From</th>
+            <th class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">To</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="md:px-6 py-4">Name</td>
+            <td class="md:px-6 py-4">{{userdetails.user_firstname}}  {{userdetails.user_lastname}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_firstname}} {{shipment.reciever_lastname}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">Postal Code</td>
+            <td class="md:px-6 py-4">{{shipment.sender_postalcode}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_postalcode}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">City</td>
+            <td class="md:px-6 py-4">{{shipment.sender_city}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_city}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">Country</td>
+            <td class="md:px-6 py-4">{{shipment.sender_country}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_country}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">Contact Number</td>
+            <td class="md:px-6 py-4">{{shipment.sender_contactnumber}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_contactnumber}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">Address</td>
+            <td class="md:px-6 py-4">{{shipment.sender_address}}</td>
+            <td class="md:px-6 py-4">{{shipment.reciever_address}}</td>
+          </tr>
+          <tr>
+            <td class="md:px-6 py-4">Email</td>
+            <td class="md:py-4 sm:text-xs md:px-6">{{shipment.sender_email}}</td>
+            <td class="md:py-4 sm:text-xs md:px-6 ">{{shipment.reciever_email}}</td>
+          </tr>
+        </tbody>
+      </table>
 
     {% if request.user == shipment.user or request.user.is_superuser %}
         <button><a href="{% url 'shipment_update' shipment.id %}">Update</a></button>
