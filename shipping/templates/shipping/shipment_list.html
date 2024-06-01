@@ -12,6 +12,56 @@
     <a href="{% url 'from_form' %}">Create Shipment</a>
     <br>
     <a href="{% url 'shipping-home'%}">Go to home</a>
+    <br>
+    <svg class="h-6 text-gray-700" fill="none" @click="show = !show"
+                      :class="{'hidden': !show, 'block':show }" viewbox="0 0 576 512">
+                      <path fill="currentColor"
+                        d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
+                      </path>
+                    </svg>
+    <br>
+
+    <div class="overflow-x-auto">
+  <table class="min-w-full bg-white dark:bg-zinc-800">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 bg-zinc-100 dark:bg-zinc-700 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">From</th>
+        <th class="py-2 px-4 bg-zinc-100 dark:bg-zinc-700 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">To</th>
+        <th class="py-2 px-4 bg-zinc-100 dark:bg-zinc-700 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
+        {% for shipment in shipments%}
+      <tr>
+        <td class="py-2 px-4 text-blue-600 dark:text-blue-400">{{shipment.sender_city}}</td>
+        <td class="py-2 px-4 text-zinc-900 dark:text-zinc-200">{{shipment.reciever_city}}</td>
+        <td class="py-2 px-4 flex gap-x-5 justify-end w-fit">
+            <a href="{% url 'shipment_detail' shipment.pk %}">
+            <svg class="h-6 text-gray-700" viewbox="0 0 576 512" > 
+                <path d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"/>
+            </svg>
+            </a>
+            <svg class="h-6 text-gray-700" viewbox="0 0 576 512">
+                <path fill="currentColor"
+                  d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
+                </path>
+                
+                
+            </svg>
+            <svg class="h-6 text-gray-700" viewbox="0 0 576 512">
+                <path fill="currentColor"
+                  d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
+                </path>
+            </svg>
+            
+        </td>
+    </tr>
+    {% endfor %}
+    
+    </tbody>
+  </table>
+</div>
+  </body>
 
 {% endblock bodycontent %}
     

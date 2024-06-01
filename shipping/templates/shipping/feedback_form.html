@@ -1,12 +1,33 @@
 {% extends 'shipping/base.html' %}
 
 {% block bodycontent %}
-    <h1>{% if form.instance.pk %}Edit Feedback{% else %}Create Feedback{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
+        <div class="max-w-xl mx-auto mt-8 flex w-full flex-col border rounded-lg bg-white p-8">
+            <h2 class="title-font mb-1 text-lg font-medium text-gray-900">{% if form.instance.pk %}Edit Feedback{% else %}Create Feedback{% endif %}</h2>
+            <div class="mb-4">
+                <label for="name" class="text-sm leading-7 text-gray-600">Name</label>
+                <input type="name" id="name" name="name" class="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+            </div>
+            <div class="mb-4">
+                <label for="email" class="text-sm leading-7 text-gray-600">Email</label>
+                <input type="email" id="email" name="email" class="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+            </div>
+            <div class="mb-4">
+                <label for="subject" class="text-sm leading-7 text-gray-600">Subject</label>
+                <textarea id="subject" name="subject" class="h-32 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="text-sm leading-7 text-gray-600">Message</label>
+                <textarea id="message" name="message" class="h-32 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+            </div>
+            <a class="rounded text-center border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none" href="{% url 'feedback_list'%}">Go to Feedback List</a>
+            <br>
+            <button class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none">Submit Feedback</button>
+            
+            {% comment %} <a href="{% url 'feedback_list' %}">Back to All Feedbacks</a> {% endcomment %}
+        </div>
     </form>
-    <a href="{% url 'feedback_list' %}">Back to All Feedbacks</a>
-{% endblock bodycontent %}
     
+{% endblock bodycontent %}
+
